@@ -17,3 +17,15 @@ labels=model.predict(X_std)
 from matplotlib import pyplot
 
 pyplot.scatter(df["Sales"],df["Fuel_Cost"],c=labels,cmap="rainbow")
+
+#to get score
+
+from sklearn.metrics import silhouette_samples
+silhouette_samples(X_std,labels)
+
+from sklearn.metrics import silhouette_score
+silhouette_score(X_std,labels)
+
+#score ideally should be>0.5
+
+#find #clusters using elbow method

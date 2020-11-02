@@ -1,0 +1,17 @@
+import pandas as pd
+
+
+X=df[["Sales","Fuel_Cost"]]
+
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+X_std=scaler.fit_transform(X)
+
+
+from sklearn.cluster import DBSCAN
+dbscan=DBSCAN(eps=0.1, min_samples=2)
+labels=dbscan.fit_predict(X_std)
+
+from matplotlib import pyplot
+
+pyplot.scatter(df["Sales"],df["Fuel_Cost"],c=labels,cmap="rainbow")

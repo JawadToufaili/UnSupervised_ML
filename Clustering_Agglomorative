@@ -1,0 +1,21 @@
+import pandas as pd
+
+
+X=df[["Sales","Fuel_Cost"]]
+
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+X_std=scaler.fit_transform(X)
+
+
+from scipy.cluster.hierarchy import dendrogram,linkage
+linked=linkage(X_std,"complete")
+dendrogram(linked,labels=df["Company"].tolist())
+
+from sklearn.cluster import AgglomerativeClustering
+cluster=AgglomerativeClustering(n_clusters=2,affinity="euclidean",linkage="complete")
+cluster.fit_predict(X_std)
+print(cluster.labels_)
+
+from matplotlib import pyplot
+pyplot.scatter(df["Sales"],df["Fuel_Cost"],c=cluster.labels_,cmap="rainbow")

@@ -1,0 +1,19 @@
+import pandas as pd
+
+df=pd.read_csv("D:\Downloads\production.csv")
+
+from matplotlib import pyplot
+pyplot.scatter(df.iloc[:,0],df.iloc[:,1])
+
+from sklearn.ensemble import IsolationForest
+iforest=IsolationForest(n_estimators=100,contamination=0.02)
+
+pred=iforest.fit_predict(df)
+score=iforest.decision_function(df)
+
+from numpy import where
+anom_index=where(pred==-1)
+values=df.iloc[anom_index]
+
+pyplot.scatter(df.iloc[:,0],df.iloc[:,1])
+pyplot.scatter(values.iloc[:,0],values.iloc[:,1],color='r')

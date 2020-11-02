@@ -1,0 +1,19 @@
+import pandas as pd
+
+
+X=df[["Sales","Fuel_Cost"]]
+
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+X_std=scaler.fit_transform(X)
+
+
+from sklearn.cluster import KMeans
+
+kmeans=KMeans(n_clusters=3)
+model=kmeans.fit(X_std)
+labels=model.predict(X_std)
+
+from matplotlib import pyplot
+
+pyplot.scatter(df["Sales"],df["Fuel_Cost"],c=labels,cmap="rainbow")
